@@ -1,0 +1,193 @@
+/* Layout: Präsentationsstandard des Vereins. Weißer Grund, Mond in Sand, Sterne oben rechts,
+   Karten in hellem Sand, Marineblau als Fläche. Die Leiter zeigt die Vereinsjahre. */
+:root {
+  --marine: #012B55;
+  --marine-tief: #001F3E;
+  --sand: #E1DEC8;
+  --sand-hell: #F1F0E6;
+  --stern: #F9E010;
+  --grau: #566A73; /* Vorlagen-Grau #677A83, leicht abgedunkelt für gute Lesbarkeit */
+  --weiss: #FFFFFF;
+  --schrift: Calibri, Carlito, "Helvetica Neue", Arial, sans-serif;
+  --breite: 68rem;
+  --rund: 14px;
+  color-scheme: light;
+}
+
+/* Carlito ist die freie, maßgleiche Web-Entsprechung zu Calibri */
+@font-face { font-family: "Carlito"; font-weight: 400; font-display: swap; src: url("../fonts/carlito-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Carlito"; font-weight: 700; font-display: swap; src: url("../fonts/carlito-latin-700-normal.woff2") format("woff2"); }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 6rem; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--weiss); color: var(--marine); font-family: var(--schrift); font-size: 1.1875rem; line-height: 1.5; }
+img { display: block; max-width: 100%; height: auto; }
+h1, h2, h3 { margin: 0; color: var(--marine); font-weight: 700; line-height: 1.12; text-wrap: balance; }
+h2 { font-size: clamp(2rem, 1.6rem + 1.8vw, 2.75rem); }
+h3 { font-size: 1.5rem; }
+p { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+a { color: var(--marine); text-underline-offset: .18em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--marine); outline-offset: 3px; border-radius: 3px; }
+
+.innen { position: relative; width: 100%; max-width: var(--breite); margin-inline: auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+.abschnitt { padding-block: clamp(3rem, 6vw, 4.5rem); }
+.abschnitt-kopf { display: grid; gap: .6rem; max-width: 38rem; margin-bottom: 2.25rem; padding-right: 6.5rem; }
+.leise { color: var(--grau); }
+.sterne { position: absolute; top: -.75rem; right: max(20px, env(safe-area-inset-right, 0px)); width: 5.5rem; }
+
+.sprung { position: absolute; left: -999px; top: 0; z-index: 30; background: var(--weiss); padding: .75rem 1rem; }
+.sprung:focus { left: 8px; top: 8px; }
+
+/* Kopfzeile */
+.kopf { position: sticky; top: 0; z-index: 20; background: var(--weiss); border-bottom: 1px solid var(--sand); }
+.kopf .innen { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 4.25rem; }
+.marke { display: flex; align-items: center; gap: .5rem; min-height: 44px; font-weight: 700; font-size: 1.15rem; white-space: nowrap; text-decoration: none; }
+.marke img { width: 1.75rem; height: 1.75rem; flex: none; }
+.nav-knopf { display: none; min-height: 44px; padding: .4rem 1rem; border: 1px solid var(--marine); border-radius: var(--rund); background: none; color: var(--marine); font: 700 1.05rem var(--schrift); cursor: pointer; }
+.nav ul { display: flex; align-items: center; gap: 1.5rem; }
+.nav a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; }
+.nav a:hover { text-decoration: underline; }
+.nav a.nav-intern { padding-inline: 1rem; border-radius: var(--rund); background: var(--marine); color: var(--weiss); font-weight: 700; }
+
+/* Eröffnung wie Titelfolie */
+.titel { overflow: hidden; }
+.titel .innen { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 2rem; padding-block: 2rem 3.5rem; }
+.titel-text { display: grid; gap: 1.1rem; min-width: 0; }
+.titel-sterne { width: 5.5rem; margin-bottom: .75rem; }
+.dachzeile { font-size: .85rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--grau); }
+.titel h1 { font-size: clamp(2.6rem, 1.7rem + 3.6vw, 4.25rem); line-height: 1.05; }
+.titel h1 span { display: block; }
+.titel-text > p:not(.dachzeile) { max-width: 30rem; font-size: 1.3rem; color: var(--grau); }
+.knoepfe { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: .5rem; }
+.knopf { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: .55rem 1.35rem; border-radius: var(--rund); border: 2px solid var(--marine); font-weight: 700; text-decoration: none; }
+.knopf-voll { background: var(--marine); color: var(--weiss); }
+.knopf-voll:hover { background: var(--marine-tief); }
+.knopf-rand { color: var(--marine); }
+.knopf-rand:hover { background: var(--sand-hell); }
+
+/* Logo auf dem Mond */
+.mondbild { position: relative; aspect-ratio: 1 / .86; min-width: 0; }
+.mondbild .mond { position: absolute; top: -14%; right: -14%; width: 88%; }
+.mondbild .logo { position: absolute; left: 0; bottom: 6%; width: 92%; }
+.mondbild-links .mond { right: auto; left: -14%; top: auto; bottom: -14%; }
+.mondbild-links .logo { left: auto; right: 0; bottom: 14%; }
+
+/* Verein */
+.verein { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+.verein-text { display: grid; gap: 1rem; min-width: 0; }
+.verein-text p { max-width: 38rem; }
+.verein-bild { width: 100%; max-width: 19rem; justify-self: center; }
+.zahlen { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; margin: 2.5rem 0 0; }
+.zahl { position: relative; display: grid; gap: .1rem; padding: 1.5rem; border: 1px solid var(--sand); border-radius: var(--rund); background: var(--sand-hell); }
+.zahl img { position: absolute; top: 1rem; right: 1rem; width: 1.75rem; height: 1.75rem; }
+.zahl dt { font-size: 2.75rem; font-weight: 700; line-height: 1.1; }
+.zahl dd { margin: 0; }
+
+/* Leiter */
+.leiter { --holm: 6rem; position: relative; margin-top: 4.5rem; }
+.leiter::before, .leiter::after { content: ""; position: absolute; top: 0; bottom: -2rem; width: 8px; border-radius: 4px; background: var(--marine); }
+.leiter::before { left: 0; }
+.leiter::after { left: calc(var(--holm) - 8px); }
+.leiter-mond { position: absolute; z-index: 1; left: calc(var(--holm) / 2 - 3.5rem); top: -4rem; width: 7rem; height: 7rem; border-radius: 50%; background: var(--weiss); }
+.jahr { position: relative; display: grid; grid-template-columns: minmax(0, 8rem) minmax(0, 1fr); gap: 1.5rem; margin-left: calc(var(--holm) + 2rem); padding-block: 1.5rem; min-width: 0; }
+.jahr::before { content: ""; position: absolute; left: calc(-1 * (var(--holm) + 2rem)); top: 2.4rem; width: var(--holm); height: 8px; border-radius: 4px; background: var(--marine); }
+.jahr + .jahr { border-top: 1px solid var(--sand); }
+.jahr h3 { font-size: 2.25rem; line-height: 1; }
+.jahr ul { columns: 2; column-gap: 2rem; min-width: 0; }
+.jahr li { break-inside: avoid; padding-block: .1rem; }
+
+/* Weihnachtsmarkt */
+.markt { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: center; padding: clamp(1.25rem, 3vw, 2rem); border: 1px solid var(--sand); border-radius: var(--rund); background: var(--sand-hell); }
+.markt img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: var(--rund); }
+.markt-text { display: grid; gap: .9rem; min-width: 0; }
+.termine { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+.termin { padding: .75rem 1rem; border-radius: var(--rund); background: var(--marine); color: var(--weiss); }
+.termin b { display: block; font-size: 1.3rem; }
+
+/* Mithelfen wie Folie "So können Sie mitmachen" */
+.wege { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.5rem, 4vw, 3rem); }
+.weg { display: grid; gap: .6rem; align-content: start; min-width: 0; }
+.rund-icon { display: grid; place-items: center; width: 4.25rem; height: 4.25rem; border-radius: 50%; background: var(--marine); }
+.rund-icon img { width: 2.5rem; height: 2.5rem; }
+.weg h3 { margin-top: .4rem; }
+.weg .knopf { margin-top: .4rem; justify-self: start; }
+.konto-band { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem; margin-top: 2.5rem; padding: 1.25rem 1.75rem; border-radius: var(--rund); background: var(--marine); color: var(--weiss); }
+.konto { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0 1rem; margin: 0; min-width: 0; }
+.konto dt { font-weight: 700; }
+.konto dd { margin: 0; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.kopieren { min-height: 44px; padding: .4rem 1.1rem; border: 2px solid var(--weiss); border-radius: var(--rund); background: none; color: var(--weiss); font: 700 1.05rem var(--schrift); cursor: pointer; }
+.kopieren:hover { background: var(--weiss); color: var(--marine); }
+
+/* Team */
+.team { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem 2rem; }
+.team li { display: grid; min-width: 0; }
+.team b { font-size: 1.35rem; line-height: 1.2; }
+.team span { color: var(--grau); }
+
+/* Interner Bereich */
+.intern { padding: clamp(1.5rem, 4vw, 2.5rem); border-radius: var(--rund); background: var(--marine); color: var(--weiss); }
+.intern h2 { color: var(--weiss); }
+.intern .abschnitt-kopf { margin-bottom: 1.5rem; padding-right: 0; }
+.tueren { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+.tuer { display: grid; gap: .25rem; align-content: start; padding: 1.25rem 1.5rem; border-radius: var(--rund); background: var(--weiss); color: var(--marine); text-decoration: none; }
+.tuer strong { display: flex; align-items: center; justify-content: space-between; gap: 1rem; font-size: 1.6rem; line-height: 1.2; }
+.tuer svg { flex: none; width: 1.4rem; height: 1.4rem; }
+.tuer:hover { background: var(--sand-hell); }
+.tuer > span { color: var(--grau); }
+
+/* Kontakt wie Schlussfolie */
+.kontakt { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: clamp(2rem, 6vw, 4.5rem); align-items: center; overflow: visible; }
+.kontakt-text { display: grid; gap: .9rem; min-width: 0; }
+.kontakt-spruch { font-size: 1.3rem; color: var(--grau); }
+.kontakt-text h3 { margin-top: .75rem; }
+.linkliste li { border-bottom: 1px solid var(--sand); }
+.linkliste li:first-child { border-top: 1px solid var(--sand); }
+.linkliste a { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 52px; padding-block: .4rem; font-weight: 700; text-decoration: none; }
+.linkliste a:hover { text-decoration: underline; }
+.linkliste svg { flex: none; width: 1.1rem; height: 1.1rem; }
+.link-offen, .link-offen:hover { color: var(--grau); cursor: default; text-decoration: none; }
+.tuer.link-offen:hover { background: var(--weiss); }
+.link-hinweis { white-space: nowrap; font-size: 1rem; font-weight: 400; color: var(--grau); }
+
+/* Fuß wie Fußzeile der Folien */
+.mond-ende { overflow: hidden; }
+.fuss { border-top: 1px solid var(--sand); font-size: 1rem; color: var(--grau); }
+.fuss .innen { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.25rem; padding-block: 1.25rem; }
+.fuss img { width: 5rem; flex: none; }
+.fuss p { flex: 1 1 18rem; min-width: 0; line-height: 1.35; }
+.fuss b { color: var(--marine); }
+.fuss nav { display: flex; flex-wrap: wrap; gap: 0 1.25rem; }
+.fuss a { display: inline-flex; align-items: center; min-height: 44px; }
+
+/* Rechtstexte */
+.recht { max-width: 44rem; padding-block: 3rem 4rem; }
+.recht h1 { font-size: clamp(2.4rem, 1.9rem + 2.2vw, 3.25rem); margin-bottom: 1.5rem; }
+.recht h2 { font-size: 1.5rem; margin-top: 2rem; margin-bottom: .4rem; }
+.recht p + p { margin-top: .75rem; }
+.recht ul { list-style: disc; padding-left: 1.25rem; margin-top: .5rem; }
+
+@media (max-width: 900px) {
+  .nav-knopf { display: inline-flex; align-items: center; }
+  .nav { display: none; position: absolute; left: 0; right: 0; top: 100%; background: var(--weiss); border-bottom: 1px solid var(--sand); padding: .5rem 20px 1rem; }
+  .nav.offen { display: block; }
+  .nav ul { flex-direction: column; align-items: stretch; gap: 0; }
+  .nav a.nav-intern { justify-content: center; margin-top: .5rem; }
+  .titel .innen, .verein, .markt, .kontakt { grid-template-columns: minmax(0, 1fr); }
+  .mondbild { width: 100%; max-width: 26rem; justify-self: center; }
+  .verein-bild { display: none; }
+  .wege, .tueren { grid-template-columns: minmax(0, 1fr); }
+  .team { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .leiter { --holm: 3rem; }
+  .jahr { grid-template-columns: minmax(0, 1fr); gap: .6rem; margin-left: calc(var(--holm) + 1.25rem); }
+  .jahr::before { left: calc(-1 * (var(--holm) + 1.25rem)); top: 2.1rem; }
+  .jahr ul { columns: 1; }
+  .leiter-mond { width: 5rem; height: 5rem; left: 0; top: -3rem; }
+}
+@media (max-width: 560px) {
+  .zahlen, .team, .termine { grid-template-columns: minmax(0, 1fr); }
+  .konto { grid-template-columns: minmax(0, 1fr); }
+  .konto dd { margin-bottom: .35rem; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
