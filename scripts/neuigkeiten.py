@@ -24,6 +24,7 @@ import json
 import os
 import re
 import sys
+import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -52,8 +53,17 @@ def _anfrage(url, token=None, daten=None, roh=False):
         kopf["Authorization"] = "Bearer " + token
     if daten is not None:
         daten = urllib.parse.urlencode(daten).encode()
-    with urllib.request.urlopen(urllib.request.Request(url, data=daten, headers=kopf), timeout=60) as r:
-        inhalt = r.read()
+    try:
+        with urllib.request.urlopen(urllib.request.Request(url, data=daten, headers=kopf), timeout=60) as r:
+            inhalt = r.read()
+    except urllib.error.HTTPError as fehler:
+        try:
+            info = json.loads(fehler.read())
+            grund = info.get("error_description") or info.get("error", {}).get("message") or info
+        except Exception:
+            grund = ""
+        ziel = url.split("?")[0]
+        sys.exit(f"Fehler {fehler.code} bei {ziel}: {str(grund).splitlines()[0] if grund else ''}")
     return inhalt if roh else json.loads(inhalt)
 
 
