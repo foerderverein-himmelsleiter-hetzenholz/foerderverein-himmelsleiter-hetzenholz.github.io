@@ -114,6 +114,17 @@ a:hover { text-decoration-thickness: 2px; }
 .plakat:hover { box-shadow: 0 4px 18px rgba(1, 43, 85, .3); }
 .aktuell-text { display: grid; gap: .9rem; min-width: 0; }
 .aktuell-text h3 { font-size: 1.9rem; }
+.aktuell.ohne-plakat { grid-template-columns: minmax(0, 1fr); }
+.unterkopf { margin: 0 0 1.25rem; font-size: 1.75rem; }
+.termine-liste + .unterkopf, .termine-liste ~ .unterkopf { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+.art { justify-self: start; padding: .15rem .7rem; border-radius: 999px; background: var(--stern); color: var(--marine); font-size: .95rem; font-weight: 700; }
+
+/* Unsere letzten Projekte */
+.rueckblick { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 13.5rem), 1fr)); gap: 1.5rem; }
+.rueck-karte { display: grid; gap: .6rem; align-content: start; min-width: 0; padding: 1rem; border: 1px solid var(--sand); border-radius: var(--rund); background: var(--sand-hell); }
+.rueck-karte .plakat { margin-bottom: .4rem; }
+.rueck-karte h4 { margin: 0; font-size: 1.3rem; line-height: 1.2; }
+.rueck-karte p:not(.art) { font-size: 1.05rem; }
 
 /* Mithelfen wie Folie "So können Sie mitmachen" */
 .wege { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.5rem, 4vw, 3rem); }

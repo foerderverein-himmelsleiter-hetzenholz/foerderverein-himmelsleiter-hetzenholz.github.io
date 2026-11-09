@@ -1,0 +1,55 @@
+# Holt Neuigkeiten und abgeschlossene Projekte aus SharePoint und schlägt die Änderung
+# als Pull Request vor. Online ist sie erst, wenn jemand den Pull Request übernimmt ("Merge").
+name: Neuigkeiten aus SharePoint
+
+on:
+  schedule:
+    - cron: "23 5-20 * * *"   # stündlich zwischen etwa 6 und 22 Uhr
+  workflow_dispatch:           # Knopf "Run workflow" unter Actions
+  repository_dispatch:         # Auslöser aus Power Automate (optional)
+    types: [sharepoint]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: neuigkeiten
+  cancel-in-progress: false
+
+jobs:
+  aktualisieren:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Bildwerkzeug installieren
+        run: pip install pillow==11.0.0
+
+      - name: Daten aus SharePoint holen
+        run: python scripts/neuigkeiten.py
+        env:
+          TENANT_ID: ${{ secrets.SP_TENANT_ID }}
+          CLIENT_ID: ${{ secrets.SP_CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.SP_CLIENT_SECRET }}
+
+      - name: Änderung vorschlagen
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: automatisch/neuigkeiten
+          delete-branch: true
+          commit-message: "Neuigkeiten aus SharePoint aktualisiert"
+          title: "Webseite: Neuigkeiten aus SharePoint"
+          body: |
+            Automatisch aus der SharePoint-Liste **Projektübersicht** erzeugt.
+
+            Bitte prüfen (Reiter **Files changed**, Plakate per Klick ansehen):
+            - Stimmen Texte und Termine?
+            - Sind auf den Plakaten nur Personen zu sehen, deren Einwilligung vorliegt?
+
+            Passt alles: **Merge pull request** klicken. Nach etwa einer Minute ist es online.
+            Etwas falsch: in SharePoint korrigieren. Der Vorschlag aktualisiert sich beim nächsten Lauf.

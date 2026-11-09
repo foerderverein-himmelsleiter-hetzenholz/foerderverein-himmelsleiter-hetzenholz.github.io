@@ -1,0 +1,18 @@
+[
+  {"ID": 7, "Title": "Sankt-Martinsfest 2026", "Projektstatus": "Planung", "Webseite": "Ankündigung",
+   "WebseiteBis": "2026-11-10T23:00:00Z", "Webplakat": "img/plakat-sankt-martin-2026.jpg",
+   "Webtermine": "Mi, 11. November 2026 | ab 16.30 Uhr\nKita Hetzenholz | vorderer Hof",
+   "Webtext": "Nach dem Martinsspiel begleitet uns der Bläsercorps Much beim Umzug durchs Dorf. Alle Kita- und Geschwisterkinder bekommen von Sankt Martin einen Weckmann.\n\nDer Förderverein bezahlt die Musik und die Weckmänner. Kakao gibt es gratis für die Kinder, Glühwein und Würstchen für ein geringes Entgelt."},
+  {"ID": 8, "Title": "Weihnachtsmarkt Much 2026", "Projektstatus": "Planung", "Webseite": "Helfer gesucht",
+   "WebseiteBis": "2026-11-28T23:00:00Z", "Webplakat": "img/plakat-weihnachtsmarkt-2026.jpg",
+   "Webtermine": "Sa, 28. November 2026 | 12 bis 21 Uhr\nSo, 29. November 2026 | 11 bis 19 Uhr",
+   "Webtext": "Wir verkaufen Waffeln und selbstgemachte Plätzchen. Der Erlös fließt in Anschaffungen und Aktivitäten für die Kinder unserer Kita.\n\nDer Stand steht nur, wenn alle Schichten besetzt sind. Trag Dich bis spätestens 20. November in die ausgehängten Schichtpläne ein. Außerdem freuen wir uns über gespendeten Waffelteig und Plätzchen."},
+  {"ID": 90, "Title": "BEISPIEL Restaurierung der Weihnachtsmarkthütte", "Projektstatus": "Abgeschlossen",
+   "Veroeffentlichung": "Öffentlich", "Enddatum": "2026-10-15T22:00:00Z", "Webplakat": "img/weihnachtshuette.jpg",
+   "Webtext": "Unsere Hütte ist frisch gestrichen, abgedichtet und hat eine neue Beleuchtung. Danke an alle, die an drei Samstagen mitgeholfen haben!"},
+  {"ID": 91, "Title": "BEISPIEL Neue Hüpfmatte für die Turnhalle", "Projektstatus": "Abgeschlossen",
+   "Veroeffentlichung": "Öffentlich", "Enddatum": "2026-09-01T22:00:00Z",
+   "Projektergebnis": "<p>Die Kinder toben jetzt sicher auf der neuen Matte. Finanziert aus Spenden vom Sommerfest.</p>"},
+  {"ID": 92, "Title": "BEISPIEL nur Mitglieder", "Projektstatus": "Abgeschlossen", "Veroeffentlichung": "Nur Mitglieder"},
+  {"ID": 93, "Title": "BEISPIEL abgelaufen", "Projektstatus": "Planung", "Webseite": "Zwischeninfo", "WebseiteBis": "2026-11-01T23:00:00Z"}
+]
