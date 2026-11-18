@@ -99,6 +99,9 @@ class SharePoint:
     def bild(self, wert):
         """Lädt das Bild einer Bildspalte. wert ist JSON-Text oder Objekt."""
         info = json.loads(wert) if isinstance(wert, str) else wert
+        if "serverRelativeUrl" not in info:
+            raise ValueError("Bild liegt als Listen-Anlage vor und ist für die Webseite nicht lesbar. "
+                             "In der Projektübersicht müssen Anlagen deaktiviert sein, dann das Bild neu hochladen.")
         adresse = info.get("serverUrl", "https://" + SITE_HOST) + info["serverRelativeUrl"]
         if self._laufwerke is None:
             self._laufwerke = self.graph(f"/sites/{self.site}/drives?$select=id,webUrl")["value"]
