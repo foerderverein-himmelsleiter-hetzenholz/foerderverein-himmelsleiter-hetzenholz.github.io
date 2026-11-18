@@ -3,12 +3,13 @@
 
 Quelle ist die Liste "Projektübersicht" auf der SharePoint-Website "Projekte":
   - Neuigkeiten:          "Webseite: Neuigkeit" ist Ankündigung, Helfer gesucht oder Zwischeninfo,
-                          das Projekt ist nicht abgeschlossen und "anzeigen bis" ist nicht vorbei.
+                          "Webseite: freigegeben" ist Ja, das Projekt ist nicht abgeschlossen
+                          und "anzeigen bis" ist nicht vorbei.
   - Unsere letzten Projekte: Projektstatus "Abgeschlossen" und Veröffentlichung "Öffentlich"
                           (die neuesten 5).
 
 Das Skript schreibt nur die markierten Bereiche in index.html neu und legt die Plakate
-in img/auto/ ab. Veröffentlicht wird erst, wenn jemand den Pull Request auf GitHub übernimmt.
+in img/auto/ ab. Die Freigabe erfolgt in SharePoint; der GitHub-Ablauf veröffentlicht direkt.
 
 Aufruf in GitHub (Zugangsdaten als Secrets):
     python scripts/neuigkeiten.py
@@ -36,7 +37,7 @@ LIST_ID = "a55e3ef5-87ea-4a9b-b88f-3f481f32ee09"  # Projektübersicht
 MAX_NEUIGKEITEN = 6
 MAX_PROJEKTE = 5
 ARTEN = ("Ankündigung", "Helfer gesucht", "Zwischeninfo")
-FELDER = ("Title,Projektstatus,Veroeffentlichung,Webseite,WebseiteBis,Webtext,Webtermine,"
+FELDER = ("Title,Projektstatus,Veroeffentlichung,Webseite,WebseiteFreigegeben,WebseiteBis,Webtext,Webtermine,"
           "Webplakat,Enddatum,Projektergebnis,Kurzbeschreibung")
 
 WURZEL = Path(__file__).resolve().parent.parent
@@ -140,7 +141,8 @@ def auswahl(eintraege, heute):
         status = e.get("Projektstatus") or ""
         if status == "Abgeschlossen" and e.get("Veroeffentlichung") == "Öffentlich":
             fertig.append(e)
-        elif status not in ("Abgeschlossen", "Archiviert") and e.get("Webseite") in ARTEN:
+        elif (status not in ("Abgeschlossen", "Archiviert") and e.get("Webseite") in ARTEN
+              and e.get("WebseiteFreigegeben") is True):
             bis = datum(e.get("WebseiteBis"))
             if bis is None or bis >= heute:
                 neu.append(e)
