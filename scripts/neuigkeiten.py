@@ -37,7 +37,7 @@ LIST_ID = "a55e3ef5-87ea-4a9b-b88f-3f481f32ee09"  # Projektübersicht
 MAX_NEUIGKEITEN = 6
 MAX_PROJEKTE = 5
 ARTEN = ("Ankündigung", "Helfer gesucht", "Zwischeninfo")
-FELDER = ("Title,Projektstatus,Veroeffentlichung,Webseite,WebseiteFreigegeben,WebseiteBis,Webtext,Webtermine,"
+FELDER = ("Title,WebseiteTitel,Projektstatus,Veroeffentlichung,Webseite,WebseiteFreigegeben,WebseiteBis,Webtext,Webtermine,"
           "Webplakat,Enddatum,Projektergebnis,Kurzbeschreibung")
 
 WURZEL = Path(__file__).resolve().parent.parent
@@ -192,6 +192,11 @@ def plakat(quelle, e):
 
 # ---------- HTML ----------
 
+def titel(e):
+    """Überschrift für die Webseite: "Webseite: Überschrift", sonst Projektname."""
+    return (e.get("WebseiteTitel") or "").strip() or e.get("Title") or ""
+
+
 def esc(t):
     return html.escape(t or "", quote=True)
 
@@ -237,10 +242,10 @@ def neuigkeiten_html(quelle, liste):
         klasse = "aktuell" if p else "aktuell ohne-plakat"
         teile.append(
             f'\n{e6}<article class="{klasse}">'
-            f'{plakat_html(p, e.get("Title"), e6 + "  ", False)}'
+            f'{plakat_html(p, titel(e), e6 + "  ", False)}'
             f'\n{e6}  <div class="aktuell-text">'
             f'\n{e6}    <p class="art">{esc(e["Webseite"])}</p>'
-            f'\n{e6}    <h3>{esc(e.get("Title"))}</h3>'
+            f'\n{e6}    <h3>{esc(titel(e))}</h3>'
             f'{termine(e.get("Webtermine"), e6 + "    ")}'
             f'{absaetze(e.get("Webtext"), e6 + "    ")}'
             f'\n{e6}  </div>'
@@ -266,9 +271,9 @@ def projekte_html(quelle, liste):
         jahr = (datum(e.get("Enddatum")) or datum(e.get("Modified")) or dt.date.today()).year
         karten.append(
             f'\n{e4}  <li class="rueck-karte">'
-            f'{plakat_html(p, e.get("Title"), e4 + "    ", True)}'
+            f'{plakat_html(p, titel(e), e4 + "    ", True)}'
             f'\n{e4}    <p class="art">Abgeschlossen {jahr}</p>'
-            f'\n{e4}    <h4>{esc(e.get("Title"))}</h4>'
+            f'\n{e4}    <h4>{esc(titel(e))}</h4>'
             f'\n{e4}    <p>{esc(kurz(text))}</p>'
             f'\n{e4}  </li>')
     return (f'\n{e4}<h3 class="unterkopf">Unsere letzten Projekte</h3>'
